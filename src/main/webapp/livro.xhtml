@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template/template.xhtml">
+            <ui:define name="corpo">
+                <h:form>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel value="Título:"/>
+                        <h:inputText value="#{livroBean.livro.titulo}" 
+                                     required="true" 
+                                     requiredMessage="É preciso informar o título do livro!"
+                                     id="titulo" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel value="Descrição:"/>
+                        <h:inputText value="#{livroBean.livro.descricao}" 
+                                     required="true" 
+                                     requiredMessage="É preciso informar a descrição do livro!"
+                                     id="descricao" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel value="Edição:"/>
+                        <h:inputText value="#{livroBean.livro.edicao}" 
+                                     required="true" 
+                                     requiredMessage="É preciso informar a edição do livro!"
+                                     id="edicao" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <h:commandButton value="Salvar" 
+                                         action="#{livroBean.salvarLivro()}"
+                                         rendered="#{!livroBean.editando}" class="btn btn-primary col-md-2"/>
+                        <h:commandButton value="Atualizar" 
+                                         action="#{livroBean.atualizarLivro()}" 
+                                         rendered="#{livroBean.editando}" class="btn btn-success col-md-2"/>
+                    </div>
+                </h:form>
+                <h:form>
+                    <div class="form-group col-md-12">
+                        <h:dataTable var="livro" value="#{livroBean.livros}" class="table">
+                            <h:column>
+                                <f:facet name="header">Título</f:facet>
+                                <h:outputText value="#{livro.titulo}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Descrição</f:facet>
+                                <h:outputText value="#{livro.descricao}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Edição</f:facet>
+                                <h:outputText value="#{livro.edicao}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Remover</f:facet>
+                                <h:commandButton value="Remover" 
+                                                 action="#{livroBean.removerLivro(livro.id)}" class="btn btn-danger col-md-12"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Editar</f:facet>
+                                <h:commandButton value="Editar" 
+                                                 action="#{livroBean.editarLivro(livro)}" class="btn btn-success col-md-12"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Autores</f:facet>
+                                <h:commandLink value="Autores" 
+                                               action="#{livroBean.pegaLivro(livro)}" class="btn btn-primary col-md-12"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
