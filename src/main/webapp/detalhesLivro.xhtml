@@ -49,7 +49,32 @@
                                                      action="#{autorBean.removerAutor(autor.id)}" class="btn btn-danger col-md-6"/>
                                 </h:column>
                             </h:dataTable>
+                            <h4>Reservas</h4>
+                            <h:dataTable var="reserva" value="#{livro1.reservas}" class="table">
+                                <h:column>
+                                    <f:facet name="header">Data</f:facet>
+                                    <h:outputText value="#{reserva.data}"/>
+                                </h:column>
+                            </h:dataTable>
                         </div>
+                    </div>
+                </h:form>
+                <h:form>
+                    <div class="form-group col-md-12">
+                        <h:outputLabel value="Data da reserva:"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h:inputText value="#{livroBean.dataReserva}" 
+                                     required="true" 
+                                     requiredMessage="É preciso informar a data da reserva!"
+                                     id="dataReserva" class="form-control col-md-4">
+                            <f:converter converterId="localDateConverter" />
+                        </h:inputText>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h:commandButton value="Reservar Livro" 
+                                         action="#{livroBean.reservarLivro()}" class="btn btn-primary col-md-4"/>
                     </div>
                 </h:form>
             </ui:define>

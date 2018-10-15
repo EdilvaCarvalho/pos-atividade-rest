@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -51,8 +52,7 @@ public class LivroServiceImpl implements LivroService {
     @Override
     public Livro novaReserva(int idLivro, LocalDate data) {
         Livro livro = getLivro(idLivro);
-        Reserva reserva = new Reserva(data);
-        em.persist(reserva);
+        Reserva reserva = new Reserva(data, livro);
         livro.addReserva(reserva);
         return livro;
     }

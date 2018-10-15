@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -25,22 +24,21 @@ public class Reserva implements Serializable {
     public int id;
     @Convert(converter = ConvertLocalDate.class)
     public LocalDate data;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "livro_id", referencedColumnName = "id", nullable = false)
-//    public Livro livro;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Livro livro;
 
     public Reserva() {
     }
 
-    public Reserva(LocalDate data) {
+    public Reserva(LocalDate data, Livro livro) {
         this.data = data;
-        //this.livro = livro;
+        this.livro = livro;
     }
 
-    public Reserva(int id, LocalDate data) {
+    public Reserva(int id, LocalDate data, Livro livro) {
         this.id = id;
         this.data = data;
-        //this.livro = livro;
+        this.livro = livro;
     }
 
     public int getId() {
@@ -59,18 +57,20 @@ public class Reserva implements Serializable {
         this.data = data;
     }
 
-//    public Livro getLivro() {
-//        return livro;
-//    }
-//
-//    public void setLivro(Livro livro) {
-//        this.livro = livro;
-//    }
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + this.id;
-        hash = 59 * hash + Objects.hashCode(this.data);
+        hash = 17 * hash + this.id;
+        hash = 17 * hash + Objects.hashCode(this.data);
+        hash = 17 * hash + Objects.hashCode(this.livro);
         return hash;
     }
 
@@ -92,12 +92,15 @@ public class Reserva implements Serializable {
         if (!Objects.equals(this.data, other.data)) {
             return false;
         }
+        if (!Objects.equals(this.livro, other.livro)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Reserva{" + "id=" + id + ", data=" + data + '}';
+        return "Reserva{" + "id=" + id + ", data=" + data + ", livro=" + livro + '}';
     }
 
 }

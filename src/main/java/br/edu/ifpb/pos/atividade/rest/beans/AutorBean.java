@@ -43,13 +43,11 @@ public class AutorBean implements Serializable {
     public String salvarAutor() {
         wt.request().post(Entity.json(autor));
         autor = new Autor();
-        carregar();
         return null;
     }
 
     public void removerAutor(int id) {
         wt.path("{id}").resolveTemplate("id", id).request().delete();
-        carregar();
     }
 
     public String atualizarAutor() {
@@ -57,7 +55,6 @@ public class AutorBean implements Serializable {
                 request().put(Entity.json(this.autor));
         this.editando = false;
         autor = new Autor();
-        carregar();
         return null;
     }
 
@@ -75,6 +72,7 @@ public class AutorBean implements Serializable {
     }
 
     public List<Autor> getAutores() {
+        carregar();
         return autores;
     }
 

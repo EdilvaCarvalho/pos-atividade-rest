@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -25,11 +25,10 @@ public class Livro implements Serializable {
     public String edicao;
     public String descricao;
     public String titulo;
-    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
-    public List<Autor> autores;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "livro_id")
-    public List<Reserva> reservas;
+    @OneToMany
+    public List<Autor> autores = new ArrayList<>();
+    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL)
+    public List<Reserva> reservas = new ArrayList<>();
 
     public Livro() {
     }
@@ -38,7 +37,6 @@ public class Livro implements Serializable {
         this.edicao = edicao;
         this.descricao = descricao;
         this.titulo = titulo;
-        this.reservas = new ArrayList<>();
     }
 
     public Livro(int id, String edicao, String descricao, String titulo, List<Autor> autores, List<Reserva> reservas) {
@@ -159,9 +157,9 @@ public class Livro implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Livro{" + "id=" + id + ", edicao=" + edicao + ", descricao=" + descricao + ", titulo=" + titulo + ", autores=" + autores + ", reservas=" + reservas + '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Livro{" + "id=" + id + ", edicao=" + edicao + ", descricao=" + descricao + ", titulo=" + titulo + ", autores=" + autores + ", reservas=" + reservas + '}';
+//    }
 
 }

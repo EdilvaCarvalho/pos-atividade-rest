@@ -7,7 +7,6 @@ import br.edu.ifpb.pos.atividade.rest.modelo.Livro;
 import java.util.List;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -47,7 +46,7 @@ public class SubResourceAutor {
         return Response.ok().entity(livro).build();
     }
 
-    @DELETE
+    @PUT
     @Path("{idAutor}")
     public Response removeAutor(@PathParam("idAutor") int id) {
         Autor autor = autorService.getAutor(id);
